@@ -24,6 +24,7 @@ std::array<int,2> parse(std::string line){
     return res;
 }
 
+
 int main (int argc, char **argv) {
     int res = 0;
     std::vector<int> list1 {};
@@ -67,18 +68,50 @@ int main (int argc, char **argv) {
         res += diff;
     }
 
-    std::cout << res << std::endl;
+    std::cout << "Distance: " << res << std::endl;
 
     // similarity
     int similarity = 0;
     auto list1_iter = list1.begin();
     auto list2_iter = list2.begin();
+    auto list2_end = list2.end();
     int current_num = -1;
     int current_num_amount = 0;
-    while(true){
+    for(int list1_item: list1){
+        if(list1_item == current_num){
+            similarity += current_num_amount * current_num;
+            std::cout << "already there! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
+        } else{
+            current_num = list1_item;
+            current_num_amount = 0;
 
+            while (list2_iter != list2_end && *list2_iter < current_num){
+                list2_iter++;
+            }
+            std::cout << "we moved! " << current_num << " " << similarity << std::endl;
+            /*if(*list2_iter != current_num) {
+                continue;
+            }*/
+
+            if(*list2_iter > current_num) {
+                continue;
+            } else if (list2_iter == list2_end){
+                break;
+            }
+
+            // count occurences in list 2
+            while (*list2_iter == current_num){
+                current_num_amount++;
+                list2_iter++;
+            }
+
+            similarity += current_num_amount * current_num;
+            std::cout << "we moved and found! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
+        }
     }
+    // delete iterators?
 
+    std::cout << "Similarity: " << similarity << std::endl;
 
     return 0;
 }
