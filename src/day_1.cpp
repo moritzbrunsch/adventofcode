@@ -26,6 +26,7 @@ std::array<int,2> parse(std::string line){
 
 
 int main (int argc, char **argv) {
+    std::cout << argc << " " << argv[0] << std::endl;
     int res = 0;
     std::vector<int> list1 {};
     std::vector<int> list2 {};
@@ -42,7 +43,14 @@ int main (int argc, char **argv) {
 
     std::ifstream input;
     std::string line;
-    input.open("./data/day_1.txt");
+    if(argc == 2){
+        input.open(argv[1]);
+    } else if(argc == 1){
+        input.open("./data/day_1.txt");
+    } else{
+        std::cerr << "Invalid amount of command line arguments. Aborting." << std::endl;
+    }
+
     std::cout << "tried to open file" << std::endl;
     if(input.is_open()){
         std::cout << "opened file" << std::endl;
@@ -51,6 +59,8 @@ int main (int argc, char **argv) {
             list1.push_back(values[0]);
             list2.push_back(values[1]);
         }
+    } else{
+        std::cerr << "Failed to open file." << std::endl;
     }
     input.close();
 
@@ -80,7 +90,7 @@ int main (int argc, char **argv) {
     for(int list1_item: list1){
         if(list1_item == current_num){
             similarity += current_num_amount * current_num;
-            std::cout << "already there! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
+            // std::cout << "already there! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
         } else{
             current_num = list1_item;
             current_num_amount = 0;
@@ -88,7 +98,7 @@ int main (int argc, char **argv) {
             while (list2_iter != list2_end && *list2_iter < current_num){
                 list2_iter++;
             }
-            std::cout << "we moved! " << current_num << " " << similarity << std::endl;
+            // std::cout << "we moved! " << current_num << " " << similarity << std::endl;
             /*if(*list2_iter != current_num) {
                 continue;
             }*/
@@ -106,7 +116,7 @@ int main (int argc, char **argv) {
             }
 
             similarity += current_num_amount * current_num;
-            std::cout << "we moved and found! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
+            // std::cout << "we moved and found! " << current_num << " " << similarity << " " << current_num_amount << std::endl;
         }
     }
     // delete iterators?
