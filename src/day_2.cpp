@@ -54,7 +54,7 @@ int main(int argc, char **argv){
     if(argc == 2){
         input.open(argv[1]);
     } else if(argc == 1){
-        input.open("./data/day_1.txt");
+        input.open("./data/day_2.txt");
     } else{
         std::cerr << "Invalid amount of command line arguments. Aborting." << std::endl;
         return 1;
