@@ -26,7 +26,6 @@ std::array<int,2> parse(std::string line){
 
 
 int main (int argc, char **argv) {
-    std::cout << argc << " " << argv[0] << std::endl;
     int res = 0;
     std::vector<int> list1 {};
     std::vector<int> list2 {};
@@ -49,11 +48,12 @@ int main (int argc, char **argv) {
         input.open("./data/day_1.txt");
     } else{
         std::cerr << "Invalid amount of command line arguments. Aborting." << std::endl;
+        return 1;
     }
 
-    std::cout << "tried to open file" << std::endl;
+    std::cout << "Tried to open file." << std::endl;
     if(input.is_open()){
-        std::cout << "opened file" << std::endl;
+        std::cout << "Opened file." << std::endl;
         while(std::getline(input, line)){
             std::array<int,2> values = parse(line);
             list1.push_back(values[0]);
@@ -61,6 +61,7 @@ int main (int argc, char **argv) {
         }
     } else{
         std::cerr << "Failed to open file." << std::endl;
+        return 1;
     }
     input.close();
 
